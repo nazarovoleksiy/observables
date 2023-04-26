@@ -17,4 +17,5 @@ export class UserComponent implements OnInit {
       this.id = +params.id;
     });
   }
+
 }
