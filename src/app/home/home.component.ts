@@ -14,10 +14,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor() { }
 
   ngOnInit() {
-    // this.firstObsSubscription = interval(1000)
-    //   .subscribe((count) => {
-    //     console.log(count)
-    // })
 
      const customIntervalObservable = Observable.create((observer) => {
        let count = 0;
@@ -25,9 +21,6 @@ export class HomeComponent implements OnInit, OnDestroy {
          observer.next(count);
          if (count === 5) {
            observer.complete();
-         }
-         if ( count > 3) {
-           observer.error(new Error('Count is greater than 3'));
          }
          count++
        }, 1000)
@@ -37,9 +30,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
      this.firstObsSubscription = customIntervalObservable
        .pipe(
-         filter(data => {
-           return data > 1
-         }),
          map((data => {
        return `Round: ${data}`;
      }))
