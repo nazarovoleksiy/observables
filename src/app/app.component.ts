@@ -45,12 +45,14 @@ export class AppComponent implements OnInit, OnDestroy {
 
   onFetchPosts() {
     // Send Http request
+    this.isFetching = true;
     this.postService.fetchPost()
       .subscribe(
         posts => {
           this.isFetching = false;
           this.loadedPosts = posts;
         }, error => {
+          this.isFetching = false;
           this.error = error.message
         });
   }
@@ -68,4 +70,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.errorSub.unsubscribe();
   }
 
+  onHandleError() {
+    this.error = null;
+  }
 }
