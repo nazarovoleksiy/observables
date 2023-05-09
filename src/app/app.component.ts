@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
         this.loadedPosts = posts;
       },error => {
           this.error = error.message;
-          console.log(error)
+          console.log(error);
         }
     )
   }
