@@ -33,4 +33,8 @@ export class PostService {
         return postArray;
       }));
   }
+
+  deletePost() {
+    return this.http.delete('https://ng-complete-guide-nazarov-default-rtdb.firebaseio.com/posts.json');
+  }
 }

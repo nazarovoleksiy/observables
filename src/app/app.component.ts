@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { map } from "rxjs/operators";
 import { Post } from "./post.model";
 import {PostService} from "./post.service";
 
@@ -31,6 +30,10 @@ export class AppComponent implements OnInit {
 
   onCreatePost(postData: Post) {
     this.postService.createAndStorePost(postData.title, postData.content);
+    setTimeout(() => {
+      this.onFetchPosts();
+    },500)
+
   }
 
   onFetchPosts() {
@@ -45,7 +48,12 @@ export class AppComponent implements OnInit {
   }
 
   onClearPosts() {
-    // Send Http request;
+    this.postService.deletePost()
+      .subscribe(
+      () => {
+        this.loadedPosts = [];
+      }
+    )
   }
 
 }
