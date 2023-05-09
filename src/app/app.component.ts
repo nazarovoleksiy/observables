@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
       .subscribe(
         posts => {
           this.isFetching = false;
-          this.loadedPosts = posts
+          this.loadedPosts = posts;
         }
       );
   }
