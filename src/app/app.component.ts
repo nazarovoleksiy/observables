@@ -12,6 +12,7 @@ import {PostService} from "./post.service";
 export class AppComponent implements OnInit {
   loadedPosts: Post[] = [];
   isFetching = false;
+  error = null;
 
   constructor(
     private http: HttpClient,
@@ -24,16 +25,15 @@ export class AppComponent implements OnInit {
       posts => {
         this.isFetching = false;
         this.loadedPosts = posts;
-      }
+      },error => {
+          this.error = error.message;
+          console.log(error)
+        }
     )
   }
 
   onCreatePost(postData: Post) {
     this.postService.createAndStorePost(postData.title, postData.content);
-    setTimeout(() => {
-      this.onFetchPosts();
-    },500)
-
   }
 
   onFetchPosts() {
@@ -43,8 +43,9 @@ export class AppComponent implements OnInit {
         posts => {
           this.isFetching = false;
           this.loadedPosts = posts;
-        }
-      );
+        }, error => {
+          this.error = error.message
+        });
   }
 
   onClearPosts() {
