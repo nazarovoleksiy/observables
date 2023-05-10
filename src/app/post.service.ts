@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Post} from "./post.model";
 import {map, catchError} from "rxjs/operators";
 import {Subject, throwError} from "rxjs";
@@ -27,9 +27,14 @@ export class PostService {
   }
 
   fetchPost() {
+    let searchParams = new HttpParams();
+    searchParams = searchParams.append('print', 'pretty');
+    searchParams = searchParams.append('customPar', 'customVal');
+
     return this.http.get<{ [key: string]: Post }>('https://ng-complete-guide-nazarov-default-rtdb.firebaseio.com/posts.json',
       {
-        headers: new HttpHeaders({'Custom-Header': 'Hello'})
+        headers: new HttpHeaders({'Custom-Header': 'Hello'}),
+        params: searchParams,
       }
     )
       .pipe(
