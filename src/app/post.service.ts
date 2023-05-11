@@ -39,6 +39,7 @@ export class PostService {
       {
         headers: new HttpHeaders({'Custom-Header': 'Hello'}),
         params: searchParams,
+        responseType: 'json',
       }
     )
       .pipe(
@@ -60,14 +61,15 @@ export class PostService {
   deletePost() {
     return this.http.delete('https://ng-complete-guide-nazarov-default-rtdb.firebaseio.com/posts.json',
       {
-        observe: 'events'
+        observe: 'events',
+        responseType: 'text'
       }
     ).pipe(tap(event => {
         console.log(event);
         if (event.type === HttpEventType.Sent) {
-          console.log(event.type);
+          //...
         }
-        if (event.type === HttpEventType.Response){
+        if (event.type === HttpEventType.Response) {
           console.log(event.body);
         }
       })
